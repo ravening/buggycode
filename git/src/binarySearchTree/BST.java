@@ -1,5 +1,6 @@
 
 package binarySearchTree;
+
 import java.util.*;
 class BSTnode {
 	private int data;
@@ -15,9 +16,10 @@ class BSTnode {
 		return this.data;
 	}
 }
+
 public class BST {
 	private BSTnode root;
-	
+	static int index = 0;
 	public BST() {
 		root = null;
 	}
@@ -337,5 +339,37 @@ public class BST {
 		}
 		
 		return symmetricIterative(root.left, root.right);
+	}
+	
+	private BSTnode preorderToBST(int[] preorder, int min, int max) {
+		BSTnode newroot = null;
+		if (preorder.length == 0) {
+			return null;
+		}
+		
+		if (index > preorder.length) {
+			return null;
+		}
+		
+		int current = preorder[index];
+		//System.out.println(current);
+		if (current > min && current < max) {
+			newroot = new BSTnode(current);
+			
+			index = index + 1;
+			
+			if (index < preorder.length) {
+				newroot.left = preorderToBST(preorder, min, current);
+			}
+			
+			if (index < preorder.length) {
+				newroot.right = preorderToBST(preorder, current, max);
+			}
+		}
+		return newroot;
+	}
+	
+	public void preorderToBst(int[] preorder) {
+		root = preorderToBST(preorder, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 }

@@ -22,7 +22,14 @@ public class BSTclass {
 //			System.out.println(i);
 //		}
 		
-		root.levelOrder();
+		//root.levelOrder();
+		
+		int[] preorder = {40, 20, 10, 30, 60, 50, 70};
+		
+		BST newroot = new BST();
+		newroot.preorderToBst(preorder);
+		newroot.inorder();
+		
 	}
 
 }
