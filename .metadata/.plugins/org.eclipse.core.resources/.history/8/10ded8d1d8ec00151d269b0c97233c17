@@ -11,8 +11,8 @@ class TreeNode {
 	
 	//constructor
 	public TreeNode(int x) {
-		data = x;
-		parent = left = right = null;
+		this.data = x;
+		this.parent = this.left = this.right = null;
 	}
 }
 
