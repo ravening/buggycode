@@ -1,8 +1,8 @@
-// node for a binary tree
-class Node {
+// Node1 for a binary tree
+class Node1 {
 	public int data;
-	public Node left, right;
-	Node(int val) {
+	public Node1 left, right;
+	Node1(int val) {
 		this.left = this.right = null;
 		this.data = val;
 	}
@@ -23,15 +23,15 @@ public class balancedTree {
 			this.depth = h;
 		}
 	}
-	public static Result isBalanced(Node node, int depth) {
-		// if leaf node or only one node then return true
-		if (node == null) {
+	public static Result isBalanced(Node1 Node1, int depth) {
+		// if leaf Node1 or only one Node1 then return true
+		if (Node1 == null) {
 			return new Result(true, depth);
 		}
 		
 		//get the depth of left and right subtree
-		Result left = isBalanced(node.left, depth + 1);
-		Result right = isBalanced(node.right, depth + 1);
+		Result left = isBalanced(Node1.left, depth + 1);
+		Result right = isBalanced(Node1.right, depth + 1);
 		
 		//if either left or right subtree isnt balancede return false
 		if (!left.balanced || !right.balanced) {
