@@ -1,32 +1,32 @@
 import java.util.Stack;
 
-class Node {
+class Nodes {
 	public int data;
-	public Node left;
-	public Node right;
+	public Nodes left;
+	public Nodes right;
 	
-	public Node() {
+	public Nodes() {
 		this.data = 0;
 		this.right = this.left = null;
 	}
 	
-	public Node(int val) {
+	public Nodes(int val) {
 		this.data = val;
 		this.left = this.right = null;
 	}
 }
 
 public class displayBoundary {
-	public void displayCircumference(Node root) {
+	public void displayCircumference(Nodes root) {
 		if (root == null) {
 			return;
 		}
 		
-		Stack<Node> stack = new Stack<Node>();
-		Stack<Node> rightside = new Stack<Node>();
+		Stack<Nodes> stack = new Stack<Nodes>();
+		Stack<Nodes> rightside = new Stack<Nodes>();
 		boolean printleaf = false;
 		
-		Node node = root;
+		Nodes node = root;
 		
 		while (node != null) {
 			if (stack.isEmpty() && printleaf &&
