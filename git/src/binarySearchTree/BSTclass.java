@@ -1,10 +1,10 @@
 package binarySearchTree;
-import java.util.*;
+//import java.util.*;
 public class BSTclass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ArrayList<Integer> list = new ArrayList<Integer>();
+		//ArrayList<Integer> list = new ArrayList<Integer>();
  		BST root = new BST(5);
 		root.insert(3);
 		root.insert(4);
