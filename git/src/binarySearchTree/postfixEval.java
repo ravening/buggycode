@@ -1,10 +1,10 @@
 package binarySearchTree;
 import java.util.*;
-class node {
+class nodes {
 	public char val;
-	public node left, right;
+	public nodes left, right;
 	
-	public node(char x) {
+	public nodes(char x) {
 		val = x;
 		left = right = null;
 	}
@@ -13,8 +13,8 @@ class node {
 
 public class postfixEval {
 
-	node t, t1, t2;
-	Stack<node> stack = new Stack<node>();
+	nodes t, t1, t2;
+	Stack<nodes> stack = new Stack<nodes>();
 	
 	//utility function to check the character is operator or not
 	public static boolean isOperator(char ch) {
@@ -29,7 +29,7 @@ public class postfixEval {
 		}
 	}
 	
-	public node postfix(char[] postfix) {
+	public nodes postfix(char[] postfix) {
 		//base case if array length is 0
 		//dont construct tree and return null
 		if (postfix.length == 0) {
@@ -39,14 +39,14 @@ public class postfixEval {
 		for (int i =0; i< postfix.length ; i++) {
 			//if the character is operand push it to stack
 			if (!isOperator(postfix[i])) {
-				stack.push(new node(postfix[i]));
+				stack.push(new nodes(postfix[i]));
 			} else {
 				//if the character is operator, create a node with value
 				//of operator. pop the two top elements of the stack.
 				//make the first popped element as the right child, second
 				//popped elemednt as the left child of the operator and
 				//push the operator onto the stack.
-				t = new node(postfix[i]);
+				t = new nodes(postfix[i]);
 				t2 = stack.pop();
 				t1 = stack.pop();
 				
@@ -60,7 +60,7 @@ public class postfixEval {
 		return stack.peek();
 	}
 	
-	public  void inorder(node root) {
+	public  void inorder(nodes root) {
 		if (root !=null) {
 			inorder(root.left);
 			System.out.println(root.val);
@@ -74,7 +74,7 @@ public class postfixEval {
 		postfixEval et = new postfixEval();
 		char[] postfix = str.toCharArray();
 		
-		node root = et.postfix(postfix);
+		nodes root = et.postfix(postfix);
 		et.inorder(root);
 	}
 

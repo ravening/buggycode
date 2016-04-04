@@ -1,16 +1,16 @@
 package binarySearchTree;
 
 //Class for tree node
-class TreeNode {
+class TreeNodes {
 	public int data;
 	
 	//parent pointer
-	public TreeNode parent;
+	public TreeNodes parent;
 	
-	public TreeNode left, right;
+	public TreeNodes left, right;
 	
 	//constructor
-	public TreeNode(int x) {
+	public TreeNodes(int x) {
 		data = x;
 		parent = left = right = null;
 	}
