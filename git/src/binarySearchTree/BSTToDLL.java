@@ -1,7 +1,7 @@
 package binarySearchTree;
 //program to convert binary search tree to doubly linked list
 
-//class contaning node definition
+//class containing node definition
 class TreeNode {
 	int data;
 	TreeNode left;
@@ -17,7 +17,7 @@ class TreeNode {
 public class BSTToDLL {
 	//do inorder traversal. Maintain two variables: head and previous.
 	//when root is null check if head is null. If head is null we have
-	//hit the leftmode node and the starting node of DLL. Make head as
+	//hit the leftmost node and the starting node of DLL. Make head as
 	//root. when it returns, in parent node of left child, head wont be
 	// null. then mark left of root as previous and right of previous
 	// as root. recursively call for right node.
