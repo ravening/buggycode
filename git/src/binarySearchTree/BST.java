@@ -15,6 +15,10 @@ class BSTnode {
 	public int getdata() {
 		return this.data;
 	}
+	
+	public void setData(int x) {
+		this.data = x;
+	}
 }
 
 public class BST {
