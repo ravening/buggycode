@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
 
-import com.sun.javafx.collections.MappingChange.Map;
 
 //Object containing tree node and depth which is stored in queue
 class Nodes {
