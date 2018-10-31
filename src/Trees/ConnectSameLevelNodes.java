@@ -8,6 +8,69 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ConnectSameLevelNodes {
+    // solution without using the extra space
+    // Do a level order traversal and connect the next pointer
+    // of the child nodes from the current level before going
+    // to the child level
+    public void connectNextRight(ThreadedNode root) {
+        if (root == null)
+            return;
+
+        ThreadedNode tmp = root;
+
+        // first set the next pointer of root
+        root.left = null;
+
+        //traverse all the levels
+        while (tmp != null) {
+            // traverse all the nodes at the current level
+            ThreadedNode q = tmp;
+            while (q != null) {
+                // First connect the next pointer of the left child
+                if (q.left != null) {
+                    // if right child is not null then its the next of left
+                    if (q.right != null) {
+                        q.left.next = q.right;
+                    } else {
+                        q.left = getNext(q);
+                    }
+                }
+
+                // now connect the right node
+                if (q.right != null) {
+                    q.right.next = getNext(q);
+                }
+
+                //goto next node
+                q = q.next;
+            }
+
+            // goto next level
+            if (tmp.left != null)
+                tmp = tmp.left;
+            if (tmp.right != null)
+                tmp = tmp.right;
+            tmp = getNext(tmp);
+        }
+    }
+
+    public ThreadedNode getNext(ThreadedNode root) {
+        if (root == null)
+            return  null;
+
+        ThreadedNode tmp = root.next;
+
+        while (tmp != null) {
+            if (tmp.left != null)
+                return tmp.left;
+            if (tmp.right != null)
+                return tmp.right;
+
+            tmp = tmp.next;
+        }
+
+        return null;
+    }
     public void solution(Node root) {
         Queue<Node> queue = new LinkedList<>();
         // add root and null initially
