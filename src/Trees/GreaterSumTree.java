@@ -16,4 +16,17 @@ public class GreaterSumTree {
             solution(root.left);
         }
     }
+
+    // program to convert tree to sum tree
+    public int solution2(Node root) {
+        if (root != null) {
+            int left = solution2(root.left);
+            int right = solution2(root.right);
+
+            int sum = root.val + left + right;
+            root.val = left + right;
+            return sum;
+        }
+        return 0;
+    }
 }
