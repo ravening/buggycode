@@ -11,7 +11,7 @@ public class GreaterSumTree {
 
             int tmp = root.val;
             root.val = sum;
-            sum = sum + root.val;
+            sum = sum + tmp;
 
             solution(root.left);
         }
