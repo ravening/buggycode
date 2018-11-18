@@ -11,6 +11,9 @@
 
 package Arrays;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class MergeIntervals {
@@ -24,7 +27,7 @@ public class MergeIntervals {
         }
     }
 
-    public List<Interval> solution(List<Interval> intervals, Interval newInterval) {
+    public List<Interval> insertInterval(List<Interval> intervals, Interval newInterval) {
         int i = 0;
         Interval tmpInterval = null;
 
@@ -44,5 +47,37 @@ public class MergeIntervals {
         intervals.add(i, tmpInterval);
 
         return intervals;
+    }
+
+    // given a list of intervals, merge them so that none of the interval overlap
+    public List<Interval> mergeIntervals(List<Interval> intervals) {
+        List<Interval> result = new ArrayList<>();
+
+        Interval[] array = intervals.toArray(new Interval[intervals.size()]);
+
+        Arrays.sort(array, new Comparator<Interval>() {
+            @Override
+            public int compare(Interval o1, Interval o2) {
+                if (o1.start == o2.start) {
+                    return o1.end - o2.end;
+                }
+                return o1.start - o2.start;
+            }
+        });
+
+        for (Interval interval : intervals) {
+            if (result.size() == 0) {
+                result.add(0, interval);
+                continue;
+            }
+
+            if (result.get(result.size()-1).end < interval.start) {
+                result.add(result.size(), interval);
+            } else {
+                result.get(result.size()-1).end = Math.max(interval.end, result.get(result.size()-1).end);
+            }
+        }
+
+        return result;
     }
 }
