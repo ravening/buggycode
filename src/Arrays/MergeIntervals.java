@@ -80,4 +80,39 @@ public class MergeIntervals {
 
         return result;
     }
+
+
+    // given two list with intervals, merge them
+    public List<Interval> mergeListIntervals(List<Interval> list1, List<Interval> list2) {
+        List<Interval> result = new ArrayList<>();
+        int start = Integer.MIN_VALUE, end = Integer.MIN_VALUE;
+        int i = 0, j = 0;
+
+        while (i < list1.size() || j < list2.size()) {
+            Interval cur;
+            if (i >= list1.size())
+                cur = list2.get(j++);
+
+            if (j >= list2.size())
+                cur = list1.get(i++);
+
+            cur = (list1.get(i).start < list2.get(j).start) ? list1.get(i++) : list2.get(j++);
+
+            if (cur.start > end) {
+                if (end > Integer.MIN_VALUE) {
+                    result.add(new Interval(start, end));
+                }
+
+                start = cur.start;
+                end = cur.end;
+            } else {
+                end = Math.max(end, cur.end);
+            }
+        }
+
+        if (end > Integer.MIN_VALUE) {
+            result.add(new Interval(start, end));
+        }
+        return result;
+    }
 }
