@@ -22,4 +22,32 @@ public class MaxContiguousSubArraySum {
             System.out.println(array[i]);
         }
     }
+
+    // given an array of only positive integers, find the contiguous array
+    // with maximum sum
+    public void solution2(int[] array) {
+        if (array.length ==0 || array.length == 1)
+            return;
+
+        int result = 0;
+        if (array.length == 2)
+            result = array[0] > array[1] ? array[0] : array[1];
+
+        int currentSum = 0;
+
+        for (int i =0; i < array.length; i++) {
+            currentSum = array[i];
+
+            while (i+1 < array.length &&
+                    array[i] < array[i+1]) {
+                i++;
+                currentSum += array[i];
+            }
+
+            if (currentSum > result)
+                result = currentSum;
+        }
+
+        System.out.println(result);
+    }
 }
