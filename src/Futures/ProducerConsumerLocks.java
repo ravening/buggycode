@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -12,81 +16,99 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ProducerConsumerLocks {
     Lock lock;
-    Condition notFull;
-    Condition notEmpty;
+    Condition isFull;
+    Condition isEmpty;
     AtomicInteger count;
-    ArrayList<Integer> buffer;
+    List<Integer> buffer;
+
     ProducerConsumerLocks() {
         lock = new ReentrantLock();
-        notFull = lock.newCondition();
-        notEmpty = lock.newCondition();
+        isFull = lock.newCondition();
+        isEmpty = lock.newCondition();
         buffer = new ArrayList<>(10);
         count = new AtomicInteger(0);
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         ProducerConsumerLocks object = new ProducerConsumerLocks();
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(8);
         try {
-        Runnable producer = () -> object.producer();
-        Runnable consumer = () -> object.consumer();
-        
-            executorService.submit(producer);
-            executorService.submit(consumer);
-        } catch (Exception e) {}
+            List<Callable> producers = new ArrayList<>();
+            List<Callable> consumers = new ArrayList<>();
+
+            for (int i = 0; i < 4; i++) {
+                producers.add(i, () -> object.producer());
+                consumers.add(i, () -> object.consumer());
+            }
+
+            List<Callable<String>> producersAndConsumers = new ArrayList<>();
+            producersAndConsumers.addAll((Collection<? extends Callable<String>>) consumers);
+            producersAndConsumers.addAll((Collection<? extends Callable<String>>) producers);
+
+            List<Future<String>> futures = executorService.invokeAll(producersAndConsumers);
+            futures.forEach(
+                future -> {
+                    try {
+                        future.get();
+                    } catch (Exception e) {}
+                }
+            );
+        } catch (Exception e) {
+
+        } finally {
+            executorService.shutdown();
+        }
     }
 
-    public void producer() {
-        while (true) {
+    public String producer() {
+        while (count.get() < 10) {
             try {
-                // lock.lock();
-
+                lock.lock();
                 // wait till buffer is not full
                 while (isFull()) {
-                    notFull.await();
+                    isFull.await();
                 }
 
-                try {
-                    // Thread.sleep(2000);
-                } catch (Exception e) {}
                 Random random = new Random();
                 buffer.add(random.nextInt(10));
                 count.getAndIncrement();
                 System.out.println("Thread: " + Thread.currentThread().getName() + " producing " + count);
-                notEmpty.signal();
+                isEmpty.signalAll();
             } catch (Exception e) {
             } finally {
-                // lock.unlock();
+                lock.unlock();
             }
         }
+
+        return "";
     }
 
-    public void consumer() {
-        while (true) {
+    public String consumer() {
+        while (count.get() < 10) {
             try {
-                // lock.lock();
+                lock.lock();
                 while (isEmpty()) {
-                    notEmpty.await();
+                    isEmpty.await();
                 }
-                try {
-                // Thread.sleep(6000);
-                } catch (Exception e) {}
-                count.decrementAndGet();
-                buffer.remove(count.get());
+
+                count.getAndDecrement();
+                buffer.remove(buffer.size() - 1);
                 System.out.println("Thread: " + Thread.currentThread().getName() + " consuming " + count);
-                notFull.signal();
+                isFull.signalAll();
             } catch (Exception e) {
             } finally {
-                // lock.unlock();
+                lock.unlock();
             }
         }
+
+        return "";
     }
 
     public boolean isFull() {
-        return count.get() == 10;
+        return buffer.size() == 10;
     }
 
     public boolean isEmpty() {
-        return count.get() == 0;
+        return buffer.size() == 0;
     }
 }
