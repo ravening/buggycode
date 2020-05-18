@@ -8,6 +8,6 @@ public class AgeComparator implements Comparator<Person> {
         if (o1.getAge() == o2.getAge()) {
             return 0;
         }
-        return o1.getAge() < o2.getAge() ? 1 : -1;
+        return o1.getAge() < o2.getAge() ? -1 : 1;
     }
 }
