@@ -1,3 +1,5 @@
+package git.src.Misc;
+
 /*
  * Given a number display the number of permutations which can be
  * generated from it

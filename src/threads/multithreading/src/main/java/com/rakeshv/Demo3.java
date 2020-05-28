@@ -4,7 +4,7 @@ package com.rakeshv;
  * Hello world!
  *
  */
-public class App 
+public class Demo3
 {
     public static void main( String[] args )
     {
