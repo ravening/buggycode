@@ -14,19 +14,19 @@ public class Functions {
         System.out.println("=====");
         int[] array = new int[]{10, 20, 30, 5, 9};
         final int[] greaterThanTen = greaterThanNumber(array, number -> number > 10);
-        
+
         for (int i : greaterThanTen) {
             System.out.println(i);
         }
         System.out.println("=====");
         final int[] evenNumbers = greaterThanNumber(array, number -> number % 2 == 0);
-        
+
         for (int i : evenNumbers) {
             System.out.println(i);
         }
         System.out.println("=====");
         final int[] oddNumbers = greaterThanNumber(array, number -> number % 2 != 0);
-        
+
         for (int i : oddNumbers) {
             System.out.println(i);
         }
@@ -50,6 +50,6 @@ public class Functions {
 /**
  * GreaterThanNumber
  */
-public interface GreaterThanNumber {
+interface GreaterThanNumber {
     public boolean apply(int number);
 }

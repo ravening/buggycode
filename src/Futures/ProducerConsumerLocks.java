@@ -1,3 +1,5 @@
+package src.Futures;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,13 +39,13 @@ public class ProducerConsumerLocks {
             List<Callable> consumers = new ArrayList<>();
 
             for (int i = 0; i < 4; i++) {
-                producers.add(i, () -> object.producer());
-                consumers.add(i, () -> object.consumer());
+                producers.add(i, object::producer);
+                consumers.add(i, object::consumer);
             }
 
             List<Callable<String>> producersAndConsumers = new ArrayList<>();
-            producersAndConsumers.addAll((Collection<? extends Callable<String>>) consumers);
-            producersAndConsumers.addAll((Collection<? extends Callable<String>>) producers);
+//            producersAndConsumers.addAll((Collection<? extends Callable<String>>) consumers);
+//            producersAndConsumers.addAll((Collection<? extends Callable<String>>) producers);
 
             List<Future<String>> futures = executorService.invokeAll(producersAndConsumers);
             futures.forEach(

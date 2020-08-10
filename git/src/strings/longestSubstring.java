@@ -1,3 +1,5 @@
+package git.src.strings;
+
 import java.util.*;
 public class longestSubstring {
 
@@ -23,13 +25,13 @@ public class longestSubstring {
 //			}
 //			answer= Math.max(answer, right - left);
 //			right++;
-//			
+//
 //		}
 //		return answer;
-		
+
 		Set<Character> set = new HashSet<Character>();
 		int length = 0; int answer = 0;
-		
+
 		for (int i=0; i< str.length(); i++) {
 			if (set.add(str.charAt(i))) {
 				length++;
@@ -38,7 +40,7 @@ public class longestSubstring {
 				length = 1;
 				set.clear();
 				set.add(str.charAt(i));
-				
+
 			}
 		}
 		return answer;

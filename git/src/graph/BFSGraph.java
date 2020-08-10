@@ -1,7 +1,7 @@
-package git.src;
+package git.src.graph;
 
 import java.util.*;
-class BFSGraph {
+public class BFSGraph {
 
 	public void levelorder(Node root) {
 		Queue<Node> q = new LinkedList<Node>();

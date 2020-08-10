@@ -1,5 +1,5 @@
-/**
- * 
+package git.src.Array; /**
+ *
  */
 
 /**
@@ -16,7 +16,7 @@ public class InsertionSort {
 		int array[] = {4, 10, 1, 7, 3 , 5, 9, 12, 2};
 		insertionSort(array);
 	}
-	
+
 	public static void insertionSort(int[] array) {
 		if (array.length == 1) {
 			System.out.println(array);
@@ -30,7 +30,7 @@ public class InsertionSort {
 			}
 			array[j+1] = temp;
 		}
-		for (int i=0; i < array.length; i++) 
+		for (int i=0; i < array.length; i++)
 			System.out.println(array[i]);
 	}
 

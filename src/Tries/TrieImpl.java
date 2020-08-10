@@ -2,8 +2,6 @@
 
 package Tries;
 
-import javafx.util.Pair;
-
 public class TrieImpl {
     class TrieNode {
         String word;

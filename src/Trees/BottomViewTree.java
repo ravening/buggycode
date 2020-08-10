@@ -1,4 +1,4 @@
-package Trees;
+package src.Trees;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.TreeMap;
-import javafx.util.Pair;
 
 class NewNode {
     int data;
@@ -64,5 +63,19 @@ public class BottomViewTree {
 
         bottomViewRecursion(root.left, hd - 1, height + 1);
         bottomViewRecursion(root.right, hd + 1, height + 1);
+    }
+}
+
+class Pair<I extends Number, I1 extends Number> {
+    public Integer first;
+    public Integer second;
+
+    Pair(Integer f, Integer s) {
+        this.first = f;
+        this.second = s;
+    }
+
+    public Integer getValue() {
+        return second;
     }
 }

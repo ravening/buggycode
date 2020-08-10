@@ -3,7 +3,9 @@ package src.Lambdas.src.main.java.com.rakeshv;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
 public class ChainingLambdas {
@@ -15,18 +17,26 @@ public class ChainingLambdas {
 
          c3.accept("hello");
 
-        List<String> numbers = Arrays.asList("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten");
-        Comparator<String> comparator = String::compareTo;
-        numbers.sort(comparator);
-         numbers.forEach(System.out::println);
+         Predicate<String> checkNull = Objects::nonNull;
+        Predicate<String> checkEmpty = String::isEmpty;
+        Predicate<String> checkNonEmpty = checkEmpty.negate();
 
-        Comparator<String> lengthComparator = (s1, s2) -> Integer.compare(s2.length(), s1.length());
-        numbers.sort(lengthComparator);
-        numbers.forEach(System.out::println);
+        Predicate<String> validString = checkNull.and(checkNonEmpty);
 
-        ToIntFunction<String> toLength = String::length;
-        Comparator<String> cmp = Comparator.comparingInt(toLength);
-        numbers.sort(cmp);
-        numbers.forEach(System.out::println);
+        System.out.println(!validString.test("dsfsdfsd"));
+
+    //    List<String> numbers = Arrays.asList("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten");
+    //    Comparator<String> comparator = String::compareTo;
+    //    numbers.sort(comparator);
+    //     numbers.forEach(System.out::println);
+
+    //    Comparator<String> lengthComparator = (s1, s2) -> Integer.compare(s2.length(), s1.length());
+    //    numbers.sort(lengthComparator);
+    //    numbers.forEach(System.out::println);
+
+    //    ToIntFunction<String> toLength = String::length;
+    //    Comparator<String> cmp = Comparator.comparingInt(toLength);
+    //    numbers.sort(cmp);
+    //    numbers.forEach(System.out::println);
     }
 }

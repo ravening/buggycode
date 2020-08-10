@@ -1,7 +1,8 @@
 /**
  Program to do the depth first search traversal of a graph
- * 
+ *
  */
+package git.src;
 import java.util.*;
 /**
  * @author rvenkatesh
@@ -18,14 +19,14 @@ public class DFS {
 		N = mat.length;
 		visited = new boolean[N];
 		array = new int[N][N];
-		
+
 		for (int i =0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				array[i][j] = mat[i][j];
 			}
 		}
 	}
-	
+
 	public void clear() {
 		for (int i = 0; i < N; i++) {
 			visited[i] = false;
@@ -41,17 +42,17 @@ public class DFS {
 			}
 		}
 	}
-	
+
 	public void iterativeDfs(int i) {
 		Stack<Integer> mystack = new Stack<Integer>();
-		
+
 		mystack.push(i);
-		
+
 		while (!mystack.isEmpty()) {
 			int top = mystack.pop();
 			visited[top] = true;
 			System.out.println(top);
-			
+
 			for (int j =0; j < N; j++) {
 				if (visited[j] == false && array[top][j] > 0) {
 					visited[j] = true;
@@ -60,7 +61,7 @@ public class DFS {
 			}
 		}
 	}
-	
+
 	/**
 	 * @param args
 	 */
@@ -72,9 +73,9 @@ public class DFS {
 				{1,0,0,1,1},
 				{0,1,1,0,1},
 				{0,0,1,1,0}
-				
+
 		};
-		
+
 		DFS root = new DFS(array);
 		root.recursiveDfs(0);
 		System.out.println();
