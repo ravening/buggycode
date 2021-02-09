@@ -2,6 +2,9 @@
 
 package Tries;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrieImpl {
     class TrieNode {
         String word;
@@ -15,11 +18,17 @@ public class TrieImpl {
         }
 
         public TrieNode() {
+            this.children = new TrieNode[26];
+            this.word = "";
+            this.isLeaf = false;
         }
 
     }
 
-    private TrieNode root = new TrieNode();
+    TrieImpl() {
+        root = new TrieNode();
+    }
+    private TrieNode root;
 
     // program to add a word in the trie
     public void addWord(String word) {
@@ -61,5 +70,44 @@ public class TrieImpl {
         }
 
         return false;
+    }
+
+    protected List<String> getWords(TrieNode head) {
+        List<String> words = new ArrayList<>();
+
+        if (head.isLeaf) {
+            words.add(head.word);
+        }
+
+        for (int i = 0; i < 26; i ++) {
+            if (head.children[i] != null) {
+                words.addAll(getWords(head.children[i]));
+            }
+        }
+
+        return words;
+    }
+
+    public List<String> autoComplete(String prefix) {
+        TrieNode head = root;
+        char[] chars = prefix.toCharArray();
+
+        for (int i = 0; i < prefix.length(); i++) {
+            if (head.children[chars[i] - 'a'] == null) {
+                return new ArrayList<>();
+            }
+            head = head.children[chars[i] - 'a'];
+        }
+
+        return getWords(head);
+    }
+
+    public static void main(String[] args) {
+        TrieImpl trie = new TrieImpl();
+        List<String> words = List.of("amazon", "amazonprime", "amazing", "amazingspiderman", "amazed", "alibaba", "alibabaexpress", "ebay", "walmart");
+        words.forEach(w -> trie.addWord(w));
+        List<String> autocomplete = trie.autoComplete("ali");
+
+        autocomplete.forEach(System.out::println);
     }
 }
