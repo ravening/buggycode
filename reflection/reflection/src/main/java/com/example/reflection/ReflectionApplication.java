@@ -1,6 +1,9 @@
 package com.example.reflection;
 
+import com.example.reflection.models.ColumnField;
+import com.example.reflection.models.MetaModel;
 import com.example.reflection.models.Person;
+import com.example.reflection.models.PrimaryKeyField;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class ReflectionApplication {
@@ -69,6 +73,21 @@ public class ReflectionApplication {
 		field = personClass.getDeclaredField("firstName");
 		System.out.println("firstName modifier is " + field.getModifiers());
 		System.out.println("is protected ? " + Modifier.isProtected(field.getModifiers()));
+
+
+		System.out.println("==============");
+
+		MetaModel<Person> metaModel = MetaModel.of(Person.class);
+		PrimaryKeyField primaryKeyField = metaModel.getPrimaryKey();
+
+		List<ColumnField> columnFields = metaModel.getColumnField();
+
+		System.out.println("Primary key name = " + primaryKeyField.getName() + " and type is " + primaryKeyField.getType().getSimpleName());
+		System.out.println("Columns are");
+		columnFields.forEach(c -> {
+			System.out.println("Column name is " + c.getName() + " and type is " + c.getType().getSimpleName());
+		});
+
 	}
 
 }
