@@ -7,12 +7,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table
 public class Person {
     @PrimaryKey
+    @Id
+    @GeneratedValue
     private long id;
 
     @Column
@@ -23,11 +29,9 @@ public class Person {
 
     @Column
     private int age;
-    public int publicAge;
 
-    private void dummyFunction() {
-        this.publicAge = 21;
-    }
+    @Transient
+    public String nickname;
 
     Person(String firstName, String lastName) {
         this.firstName = firstName;

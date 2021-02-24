@@ -7,6 +7,7 @@ import com.example.reflection.models.PrimaryKeyField;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.persistence.EntityManager;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -30,8 +31,8 @@ public class ReflectionApplication {
 		Class<?> personClass = Person.class;
 
 		// this gives only the public fields
-		Field field = personClass.getField("publicAge");
-		System.out.println(field.toString());
+		Field field = personClass.getField("nickname");
+//		System.out.println(field.toString());
 
 		// this gets all fields of a class
 		Field[] declaredFields = personClass.getDeclaredFields();
@@ -87,6 +88,7 @@ public class ReflectionApplication {
 		columnFields.forEach(c -> {
 			System.out.println("Column name is " + c.getName() + " and type is " + c.getType().getSimpleName());
 		});
+
 
 	}
 
