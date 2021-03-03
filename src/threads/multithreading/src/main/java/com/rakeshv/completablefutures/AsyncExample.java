@@ -17,7 +17,7 @@ public class AsyncExample {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         ExecutorService executorService1 = Executors.newSingleThreadExecutor();
-
+        ExecutorService starter = Executors.newSingleThreadExecutor();
         Supplier<List<Long>> userIdSupplier = () -> {
             return Arrays.asList(1L, 2L, 3L);
         };
@@ -54,7 +54,8 @@ public class AsyncExample {
             users.forEach(System.out::println);
         };
 
-        CompletableFuture<List<Long>> completableFuture = CompletableFuture.supplyAsync(userIdSupplier);
+        CompletableFuture<Void> start = new CompletableFuture<>();
+        CompletableFuture<List<Long>> completableFuture = start.thenApply(nil -> userIdSupplier.get());
         CompletableFuture<List<User>> userFuture = completableFuture.thenComposeAsync(fetchUsers);
         CompletableFuture<List<Email>> emailFuture = completableFuture.thenComposeAsync(fetchEmails);
 
@@ -64,6 +65,7 @@ public class AsyncExample {
                     System.out.println("User size is " + users.size() + " and email size is " + emails.size());
         });
 
+        start.completeAsync(() -> null, starter);
         CompletableFuture<List<User>> users1 = completableFuture.thenComposeAsync(fetchUsers);
         CompletableFuture<List<User>> users2 = completableFuture.thenComposeAsync(fetchUsers1);
 
@@ -77,6 +79,7 @@ public class AsyncExample {
             Thread.sleep(6000);
             executorService.shutdown();
             executorService1.shutdown();
+            starter.shutdown();
         } catch (Exception e) {
             //TODO: handle exception
         }

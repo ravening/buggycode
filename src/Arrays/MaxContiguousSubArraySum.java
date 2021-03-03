@@ -50,4 +50,11 @@ public class MaxContiguousSubArraySum {
 
         System.out.println(result);
     }
+
+    public static void main(String[] args) {
+        int[] array = new int[]{1,2,3,4,1,5,6,7,8};
+
+        MaxContiguousSubArraySum solution = new MaxContiguousSubArraySum();
+        solution.solution2(array);
+    }
 }
