@@ -15,7 +15,7 @@ public class VerticalSumDll {
     // Instead of using the hash table to store the level and its corresponding sum,
     // use doubly linked list to store the result. this will consume less memory
 
-    public void verticalSum(Node root) {
+    public void verticalSum(Trees.Node root) {
         DllNode head = new DllNode(0);
 
         verticalSumutil(root, head);
@@ -31,7 +31,7 @@ public class VerticalSumDll {
         }
     }
 
-    public void verticalSumutil(Node root, DllNode head) {
+    public void verticalSumutil(Trees.Node root, DllNode head) {
         // store the root data in the current linked list node
         head.data = head.data + root.val;
 

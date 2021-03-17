@@ -2,6 +2,8 @@
 
 package Strings;
 
+import java.util.Arrays;
+
 public class AnagramSubstringSearch {
     public void solution(String string, String pattern) {
         int MAX = 256;
@@ -11,6 +13,9 @@ public class AnagramSubstringSearch {
         int n = string.length();
         int m = pattern.length();
 
+        // if pattern length is greater than string length then no solution
+        if (m > n)
+            return;
         for (int i = 0; i < MAX; i++) {
             countS[string.charAt(i)]++;
             countP[pattern.charAt(i)]++;
@@ -36,6 +41,11 @@ public class AnagramSubstringSearch {
                 return false;
         }
 
+        /*
+        if (Arrays.equals(arrA, arrB)) {
+            return true;
+        }
+         */
         return true;
     }
 }
