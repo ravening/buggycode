@@ -1,4 +1,4 @@
-package SingleLinkedList;
+package src.SingleLinkedList;
 
 public class MergeSortLinkedList {
     public Node getMiddle(Node root) {

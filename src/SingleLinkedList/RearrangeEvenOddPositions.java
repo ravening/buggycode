@@ -1,5 +1,5 @@
 // given a linked linst, arrange the odd and even positions node together
-package SingleLinkedList;
+package src.SingleLinkedList;
 
 public class RearrangeEvenOddPositions {
     public Node solution(Node root) {

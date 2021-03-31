@@ -1,6 +1,6 @@
 // given a binary tree, convert it into threaded binary tree
 
-package Trees;
+package src.Trees;
 
 // solution : Do a reverse inorder traversal with next variable initialized to null
 // when you go right dont change "next". before going left, assign current node to next

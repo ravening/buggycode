@@ -9,7 +9,7 @@
 
 // This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10].
 
-package Arrays;
+package src.Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +24,14 @@ public class MergeIntervals {
         public Interval(int start, int end) {
             this.start = start;
             this.end = end;
+        }
+
+        public int getStart() {
+            return start;
+        }
+
+        public int getEnd() {
+            return end;
         }
     }
 
@@ -81,22 +89,33 @@ public class MergeIntervals {
         return result;
     }
 
+    Comparator<Interval> comparator = Comparator.comparing(Interval::getStart).thenComparing(Interval::getEnd);
 
     // given two list with intervals, merge them
     public List<Interval> mergeListIntervals(List<Interval> list1, List<Interval> list2) {
+        Interval[] first = list1.toArray(new Interval[list1.size()]);
+        Interval[] second = list2.toArray(new Interval[list2.size()]);
+
+        Arrays.sort(first, comparator);
+        Arrays.sort(second, comparator);
+
+        list1 = Arrays.asList(first);
+        list2 = Arrays.asList(second);
+
         List<Interval> result = new ArrayList<>();
         int start = Integer.MIN_VALUE, end = Integer.MIN_VALUE;
         int i = 0, j = 0;
 
         while (i < list1.size() || j < list2.size()) {
-            Interval cur;
+            Interval cur = null;
             if (i >= list1.size())
                 cur = list2.get(j++);
 
             if (j >= list2.size())
                 cur = list1.get(i++);
 
-            cur = (list1.get(i).start < list2.get(j).start) ? list1.get(i++) : list2.get(j++);
+            if (cur == null)
+                cur = (list1.get(i).start < list2.get(j).start) ? list1.get(i++) : list2.get(j++);
 
             if (cur.start > end) {
                 if (end > Integer.MIN_VALUE) {

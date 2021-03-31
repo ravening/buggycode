@@ -2,7 +2,7 @@
 
 // Using level order traversal, we connect the current node to next node
 // in the queue
-package Trees;
+package src.Trees;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -71,8 +71,8 @@ public class ConnectSameLevelNodes {
 
         return null;
     }
-    public void solution(Node root) {
-        Queue<Node> queue = new LinkedList<>();
+    public void solution(TreeNode<Integer> root) {
+        Queue<TreeNode<Integer>> queue = new LinkedList<>();
         // add root and null initially
         queue.add(root);
         queue.add(null);
@@ -82,15 +82,15 @@ public class ConnectSameLevelNodes {
             // if its null then it means we are done with
             // current level. so add null again
             // else point next of current node to the first element in queue
-            Node tmp = queue.poll();
+            TreeNode<Integer> tmp = queue.poll();
             if (tmp != null) {
                 // point next to first element in queue
-                tmp.right = queue.peek();
+                tmp.setRight(queue.peek());
 
-                if (tmp.left != null)
-                    queue.add(tmp.left);
-                if (tmp.right != null)
-                    queue.add(tmp.right);
+                if (tmp.getLeft() != null)
+                    queue.add(tmp.getLeft());
+                if (tmp.getRight() != null)
+                    queue.add(tmp.getRight());
             } else if (!queue.isEmpty()) {
                 // if we encounter null, it means we are done with current level
                 // else queue will never be emtpy

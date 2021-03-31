@@ -1,4 +1,4 @@
-package SingleLinkedList;
+package src.SingleLinkedList;
 
 public class Node {
     int data;
@@ -6,6 +6,7 @@ public class Node {
 
     public Node(int data) {
         this.data = data;
+        this.next = null;
     }
 
     public Node(Node next) {

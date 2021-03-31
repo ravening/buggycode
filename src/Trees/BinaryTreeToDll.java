@@ -1,42 +1,66 @@
 // given a binary tree, convert it into doubly linked list
-package Trees;
+package src.Trees;
+
 
 public class BinaryTreeToDll {
-    public Node head;
 
-    public Node solution(Node root) {
+    static TreeNode<Integer> prev = null;
+    TreeNode<Integer> head;
+
+    // https://www.geeksforgeeks.org/convert-given-binary-tree-doubly-linked-list-set-3/
+    public void inPlaceBinaryTreeToDll(TreeNode<Integer> root) {
+        if (root == null)
+            return;
+
+        inPlaceBinaryTreeToDll(root.getLeft());
+
+        if (prev == null) {
+            // we have encountered the left most node. so make it as head
+            head = root;
+        } else {
+            root.setLeft(prev);
+            prev.setRight(root);
+        }
+
+        prev = root;
+
+        inPlaceBinaryTreeToDll(root.getRight());
+
+    }
+
+    public TreeNode<Integer> solution(TreeNode<Integer> root) {
         if (root == null)
             return null;
 
-        solution(root.right);
+        solution(root.getRight());
 
-        root.right = head;
+        root.setRight(head);
         if (head != null)
-            head.left = root;
+            head.setLeft(root);
 
         head = root;
 
-        solution(root.left);
+        solution(root.getLeft());
 
         return head;
     }
 
     // given a binary tree, return the leaves of the tree as a dobuly linked list
-    Node temp = head;
-    public Node returnLeaves(Node root) {
-        if (root.left == null && root.right == null)
+    TreeNode<Integer> temp = head;
+    public TreeNode<Integer> returnLeaves(TreeNode<Integer> root) {
+        if (root.getLeft() == null && root.getRight() == null)
             return null;
 
-        root.right = returnLeaves(root.left);
+        root.setRight(returnLeaves(root.getLeft()));
         if (temp == null) {
             temp = root;
         } else {
-            temp.right = root;
-            root.left = temp;
+            temp.setRight(root);
+            root.setLeft(temp);
             temp = root;
         }
 
-        root.left = returnLeaves(root.right);
+        root.setLeft(returnLeaves(root.getRight()));
 
         return temp;
     }

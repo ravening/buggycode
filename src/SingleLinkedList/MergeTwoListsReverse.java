@@ -2,7 +2,7 @@
 
 // Idea is same as merging two sorted linked lists. Instead of merging the nodes and moving right
 // we add the current smallest node at the beginning and move left
-package SingleLinkedList;
+package src.SingleLinkedList;
 
 public class MergeTwoListsReverse {
     public Node mergeListsReverse(Node node1, Node node2) {
