@@ -65,6 +65,42 @@ public class KthLargest {
 
         kthLargest(root.getLeft(), k , counter);
     }
+
+    private TreeNode<Integer> kthLargestMorris(TreeNode<Integer> root, int k) {
+        if (root == null)
+            return null;
+
+        TreeNode<Integer> result = null;
+        int count = 0;
+        while (root != null) {
+            if (root.getRight() == null) {
+                if (++count == k) {
+                    result = root;
+                }
+
+                root = root.getLeft();
+            } else {
+                TreeNode<Integer> successor = root.getRight();
+
+                while (successor.getLeft() != null && successor.getLeft() != root) {
+                    successor = successor.getLeft();
+                }
+
+                if (successor.getLeft() == null) {
+                    successor.setLeft(root);
+                    root = root.getRight();
+                } else {
+                    successor.setLeft(null);
+                    if (++count == k) {
+                        result = root;
+                        root = root.getLeft();
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
 }
 
 class Counter {
