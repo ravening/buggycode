@@ -1,5 +1,5 @@
 // given an array of elements, print the next greater element to the right of it
-package Arrays;
+package src.Arrays;
 
 import java.util.Stack;
 
@@ -17,5 +17,31 @@ public class NextGreaterElement {
             output[i] = stack.empty() ? -1 : stack.peek();
             stack.push(array[i]);
         }
+    }
+
+    /*
+    https://www.techiedelight.com/find-maximum-value-index-array/
+     */
+
+    public int maxDiff(int[] array) {
+        int diff = Integer.MIN_VALUE;
+        int[] aux = new int[array.length];
+
+        aux[array.length-1] = array[array.length-1];
+
+        for (var j = array.length - 2; j >= 0; j--) {
+            aux[j] = Math.max(array[j], aux[j+1]);
+        }
+
+        for (int i=0, j = 0; i < array.length && j < array.length;) {
+            if (array[i] < aux[j]) {
+                diff = Math.max(diff, j - i);
+                j++;
+            } else {
+                i++;
+            }
+        }
+
+        return diff;
     }
 }
