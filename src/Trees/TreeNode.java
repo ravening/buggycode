@@ -40,4 +40,8 @@ public class TreeNode<T> {
     public void setRight(TreeNode<T> right) {
         this.right = right;
     }
+
+    public boolean isLeafNode() {
+        return this.getLeft() == null && this.getRight() == null;
+    }
 }

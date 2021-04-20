@@ -1,5 +1,7 @@
 package Trees;
 
+import src.Trees.TreeNode;
+
 class Node {
     public int val;
     public Node left;
@@ -34,5 +36,27 @@ public class MaxPathSum {
         res.val = Math.max(res.val, maxTop);
 
         return maxSingle;
+    }
+
+    /*
+    https://www.techiedelight.com/maximum-path-sum-binary-tree/
+     */
+
+    public int solution(TreeNode<Integer> root) {
+        if (root == null)
+            return 0;
+
+        int left = solution(root.getLeft());
+        int right = solution(root.getRight());
+
+        int max = res.val;
+        max = Math.max(max, root.getData());
+        max = Math.max(max, root.getData() + left);
+        max = Math.max(max, root.getData() + right);
+        max = Math.max(max, root.getData() + left + right);
+
+        res.val = max;
+
+        return Math.max(root.getData(), Math.max(left, right) + root.getData());
     }
 }

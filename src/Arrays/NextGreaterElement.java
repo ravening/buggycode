@@ -1,9 +1,29 @@
 // given an array of elements, print the next greater element to the right of it
 package src.Arrays;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class NextGreaterElement {
+    /*
+    https://www.techiedelight.com/next-greater-element/
+     */
+    public int[] nextGreaterElement(int[] array) {
+        Stack<Integer> stack = new Stack<>();
+        int[] output = new int[array.length];
+        Arrays.fill(output, -1);
+
+        for (var i = 0; i < array.length; i++) {
+            while (!stack.isEmpty() && array[i] > array[stack.peek()]) {
+                output[stack.pop()] = array[i];
+            }
+
+            stack.push(i);
+        }
+
+        return output;
+    }
+
     public void solution(int[] array) {
         Stack<Integer> stack = new Stack<>();
         int[] output = new int[array.length];
