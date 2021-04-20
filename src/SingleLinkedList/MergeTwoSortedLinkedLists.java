@@ -38,7 +38,7 @@ public class MergeTwoSortedLinkedLists {
 
         if (head1 == null) {
             tail.next = head2;
-        } else if (head2 == null) {
+        } else {
             tail.next = head1;
         }
 

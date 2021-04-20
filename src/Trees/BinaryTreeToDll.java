@@ -64,4 +64,30 @@ public class BinaryTreeToDll {
 
         return temp;
     }
+
+    //https://www.techiedelight.com/extract-leaves-of-binary-tree-into-doubly-linked-list/
+    public TreeNode<Integer> getLeaves(TreeNode<Integer> root, TreeNode<Integer> head) {
+        if (root == null)
+            return null;
+
+        root.setRight(getLeaves(root.getRight(), head));
+        if (isLeaf(root)) {
+            root.setRight(head);
+
+            if (head != null) {
+                root.setRight(head);
+                head.setLeft(root);
+                head = root;
+            }
+            return null;
+        }
+
+        root.setLeft(getLeaves(root.getLeft(),head));
+
+        return root;
+    }
+
+    private boolean isLeaf(TreeNode<Integer> root) {
+        return root.getLeft() == null && root.getRight() == null;
+    }
 }

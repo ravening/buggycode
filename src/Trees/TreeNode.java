@@ -11,6 +11,12 @@ public class TreeNode<T> {
         this.right = null;
     }
 
+    public TreeNode(T data, TreeNode<T> left, TreeNode<T> right) {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+    }
+
     public T getData() {
         return data;
     }
