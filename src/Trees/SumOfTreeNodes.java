@@ -8,7 +8,7 @@ public class SumOfTreeNodes {
     ArrayList<Integer> queue = new ArrayList<>();
     static int sum = 0;
 
-    public int solution(Node root) {
+    public int solution(Trees.Node root) {
         queue.add(root.val);
 
         if (root.left != null) {

@@ -3,15 +3,19 @@ package src.Strings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 //https://www.geeksforgeeks.org/word-break-problem-dp-32/
 public class WordBreak {
     private TrieNode root;
+    private Set<String> dictionary;
 
     WordBreak() {
         root = new TrieNode();
+        dictionary = new HashSet<>();
     }
 
     public static void solution(String s, List<String> dictionary) {
@@ -89,12 +93,36 @@ public class WordBreak {
     }
     public void wordBreak(String s, List<String> words) {
         this.insertWords(words);
-
+        dictionary.addAll(words);
         System.out.println(wordBreak(s));
+        System.out.println();
+        wordBreakUtil(s, "");
     }
+
+
+    /*
+    https://www.geeksforgeeks.org/word-break-problem-using-backtracking/
+     */
+    /*
+    Function to display all possible sentences
+     */
+    public void wordBreakUtil(String s, String prefix) {
+
+        for (var i = 1; i <= s.length(); i++) {
+            if (this.dictionary.contains(s.substring(0, i))) {
+                if (i == s.length()) {
+                    prefix = prefix + s.substring(0, i);
+                    System.out.println(prefix);
+                } else {
+                    wordBreakUtil(s.substring(i), prefix + s.substring(0, i) + " ");
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         List<String> dictionary = new ArrayList<>(Arrays.asList(
-                "mobile", "samsung", "sam", "man", "mango", "icecream", "and", "i", "like", "ice", "cream", "go"
+                "mobile", "samsung", "sam", "man", "mango", "icecream", "and", "i", "like", "ice", "cream", "go", "love", "sung"
         ));
 
         String word = "ilikemango";
@@ -102,6 +130,10 @@ public class WordBreak {
 
         WordBreak wordBreak = new WordBreak();
 
+        wordBreak.wordBreak(word, dictionary);
+        word = "ilikeicecreamandmango";
+        wordBreak.wordBreak(word, dictionary);
+        word = "ilovesamsungmobile";
         wordBreak.wordBreak(word, dictionary);
     }
 

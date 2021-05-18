@@ -38,7 +38,7 @@ public class VerticalSumDll {
         // if left node in tree is not null, then check if left node in dll exists or not
         // if not created it and traverse left in the list.
         if (root.left != null) {
-            if (head.prev != null) {
+            if (head.prev == null) {
                 head.prev = new DllNode(0);
                 head.prev.next = head;
             }
@@ -47,7 +47,7 @@ public class VerticalSumDll {
         }
 
         if (root.right != null) {
-            if (head.next != null) {
+            if (head.next == null) {
                 head.next = new DllNode(0);
                 head.next.prev = head;
             }

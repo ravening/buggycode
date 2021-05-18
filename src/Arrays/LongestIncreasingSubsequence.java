@@ -1,6 +1,7 @@
 package src.Arrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -11,7 +12,58 @@ public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
         int[] arr = {3,2,4,5,1};
         solution(arr);
+        lisCount(arr);
+
+        arr = new int[]{10, 22, 9, 33, 21, 50, 41, 60};
+        solution(arr);
+        lisCount(arr);
+        maxIncreasingSum(arr);
     }
+
+    public static void maxIncreasingSum(int[] array) {
+        int[] dp = new int[array.length];
+        for (var i = 0; i < array.length; i++) {
+            dp[i] = array[i];
+        }
+
+        for (var i = 1; i < array.length; i++) {
+            for (var j = 0 ; j < i; j++) {
+                if (array[i] > array[j] && (dp[i] < dp[j] + array[i])) {
+                    dp[i] = dp[j] + array[i];
+                }
+            }
+        }
+
+        int max = 0;
+        for (var x : dp) {
+            max = Math.max(max,x);
+        }
+
+        System.out.println(max);
+    }
+    public static void lisCount(int[] array) {
+        int[] dp = new int[array.length];
+        int i=0, j=0, max = 0;
+
+        Arrays.fill(dp, 1);
+
+        for (i = 1; i < array.length; i++) {
+            for (j = 0; j < i; j++) {
+                if (array[i] > array[j] && dp[i] < dp[j] + 1) {
+                    dp[i] = dp[j] + 1;
+                }
+            }
+        }
+
+        for (var x : dp) {
+            if (x > max) {
+                max = x;
+            }
+        }
+
+        System.out.println(max);
+    }
+
     public static void solution(int[] array) {
         List<ArrayList<Integer>> lis = new ArrayList<>();
         for (var i =0; i < array.length; i++) {
@@ -31,12 +83,15 @@ public class LongestIncreasingSubsequence {
         }
 
         int max = lis.get(0).size();
+        List<Integer> list = lis.get(max);
         for (var i = 1; i < lis.size(); i++) {
-            max = Math.max(max, lis.get(i).size());
+            if (lis.get(i).size() > max) {
+                list = lis.get(i);
+                max = lis.get(i).size();
+            }
         }
 
-        List<Integer> list = lis.get(max);
-
         list.forEach(x -> System.out.print(x + " "));
+        System.out.println();
     }
 }

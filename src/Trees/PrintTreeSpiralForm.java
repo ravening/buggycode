@@ -6,11 +6,11 @@ import java.util.LinkedList;
 
 public class PrintTreeSpiralForm {
 
-    public void solution(Node root) {
+    public void solution(Trees.Node root) {
         if (root == null)
             return;
 
-        Deque<Node> deque = new LinkedList<>();
+        Deque<Trees.Node> deque = new LinkedList<>();
         int size = 0;
         int level = 0;
 
@@ -20,7 +20,7 @@ public class PrintTreeSpiralForm {
             size = deque.size();
             if (level == 0) {
                 while (size-- > 0) {
-                    Node tmp = deque.removeLast();
+                    Trees.Node tmp = deque.removeLast();
                     System.out.println(tmp.val);
                     if (tmp.right != null)
                         deque.addFirst(tmp.right);
@@ -30,7 +30,7 @@ public class PrintTreeSpiralForm {
                 level = 1;
             } else {
                 while (size-- > 0) {
-                    Node tmp = deque.removeFirst();
+                    Trees.Node tmp = deque.removeFirst();
                     System.out.println(tmp.val);
                     if (tmp.left != null)
                         deque.addLast(tmp.left);

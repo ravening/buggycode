@@ -1,6 +1,4 @@
-package git.src; /**
- *
- */
+package src.Arrays;
 
 /**
  * @author rvenkatesh

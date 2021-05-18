@@ -3,11 +3,11 @@
 package Trees;
 
 public class ReverseAlternateLevels {
-    public void solution(Node root) {
+    public void solution(Trees.Node root) {
         reverseAlternate(root.left, root.right, 0);
     }
 
-    public void reverseAlternate(Node root1, Node root2, int lvl) {
+    public void reverseAlternate(Trees.Node root1, Trees.Node root2, int lvl) {
         if (root1 == null || root2 == null)
             return;
 

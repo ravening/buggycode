@@ -1,4 +1,4 @@
-package git.src;
+package src.Trees;
 
 // Node1 for a binary tree
 class Node1 {
@@ -36,13 +36,9 @@ public class BalancedTree {
 		Result right = isBalanced(Node1.right, depth + 1);
 
 		//if either left or right subtree isnt balancede return false
-		if (!left.balanced || !right.balanced) {
-			return new Result(false, 0);
-		}
-
 		//if the height of the left and right subtree differs by more than 1
 		//then return false
-		if (Math.abs(left.depth - right.depth) > 1) {
+		if (!left.balanced || !right.balanced || Math.abs(left.depth - right.depth) > 1) {
 			return new Result(false, 0);
 		}
 
